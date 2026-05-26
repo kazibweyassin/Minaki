@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | Minaki Holdings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sand: #F5EFE0;
+      --sand-dark: #E8DFC8;
+      --earth: #8B6E4E;
+      --earth-dark: #6A4F34;
+      --clay: #C4875A;
+      --clay-light: #E8A97A;
+      --forest: #2D4A3E;
+      --forest-light: #3D6B5A;
+      --ink: #1A1410;
+      --ink-mid: #3D2F24;
+      --muted: #7A6355;
+      --white: #FDFAF5;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 4vw;
+      background: rgba(253, 250, 245, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26, 20, 16, 0.08);
+    }
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--forest);
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      justify-content: flex-end;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--clay); }
+
+    .hero {
+      position: relative;
+      min-height: 72vh;
+      display: grid;
+      align-items: end;
+      padding: 5rem 4vw 4rem;
+      background:
+        linear-gradient(160deg, rgba(45,74,62,0.82) 0%, rgba(26,20,16,0.92) 70%),
+        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80') center/cover no-repeat;
+      color: var(--white);
+    }
+    .hero-inner { max-width: 760px; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--clay-light);
+      margin-bottom: 1rem;
+    }
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.1;
+      margin: 0;
+    }
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      max-width: 11ch;
+      margin-bottom: 1.25rem;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 46rem;
+      color: rgba(253,250,245,0.76);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: transform 0.2s, background 0.2s, color 0.2s;
+    }
+    .button.primary {
+      background: var(--clay);
+      color: var(--white);
+    }
+    .button.secondary {
+      background: rgba(253,250,245,0.08);
+      color: var(--white);
+      border: 1px solid rgba(253,250,245,0.16);
+    }
+    .button:hover { transform: translateY(-2px); }
+
+    section { padding: 6rem 4vw; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .label {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 2.5rem;
+    }
+    .section-head p {
+      margin: 1rem 0 0;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .summary-card {
+      background: var(--sand);
+      border: 1px solid var(--sand-dark);
+      padding: 1.4rem;
+    }
+    .summary-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.65rem;
+      color: var(--ink);
+    }
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .service-section {
+      border-top: 1px solid var(--sand-dark);
+    }
+    .service-section.alt { background: rgba(245, 239, 224, 0.5); }
+    .service-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .service-copy h2 {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      margin-bottom: 1rem;
+    }
+    .service-copy p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .detail-list {
+      list-style: none;
+      margin: 1.5rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 0.85rem;
+    }
+    .detail-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      line-height: 1.7;
+      color: var(--ink-mid);
+    }
+    .detail-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--clay);
+      font-size: 1.1rem;
+    }
+    .service-panel {
+      background: var(--ink);
+      color: var(--white);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 24px 60px rgba(26,20,16,0.12);
+    }
+    .service-panel h3 {
+      font-size: 1.9rem;
+      margin-bottom: 1rem;
+    }
+    .service-panel p {
+      margin: 0 0 1rem;
+      color: rgba(253,250,245,0.68);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .service-panel ul {
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.85rem;
+    }
+    .service-panel li {
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(253,250,245,0.12);
+      color: rgba(253,250,245,0.82);
+      line-height: 1.7;
+    }
+
+    .cta {
+      background: var(--forest);
+      color: var(--white);
+    }
+    .cta-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cta-inner p {
+      margin: 1rem auto 2rem;
+      color: rgba(253,250,245,0.78);
+      line-height: 1.8;
+      max-width: 52rem;
+    }
+
+    footer {
+      padding: 2rem 4vw 2.5rem;
+      background: var(--ink);
+      color: rgba(253,250,245,0.7);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .summary-grid,
+      .service-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-links {
+        justify-content: flex-start;
+      }
+      .hero {
+        min-height: 68vh;
+        padding-top: 4rem;
+      }
+      .summary-grid,
+      .service-layout {
+        grid-template-columns: 1fr;
+      }
+      section { padding: 5rem 4vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="index.html">Minaki Holdings</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#agriculture">Agriculture</a>
+      <a href="#transport">Transport</a>
+      <a href="#real-estate">Real Estate</a>
+      <a href="#hardware">Hardware</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Services</span>
+      <h1>Practical support across land, logistics, property, and construction.</h1>
+      <p>Our service lines are built to help businesses move goods, develop assets, and source reliable materials with a grounded, region-aware approach.</p>
+      <div class="button-row">
+        <a class="button primary" href="#agriculture">Explore services</a>
+        <a class="button secondary" href="index.html">Back to home</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="label">What we offer</span>
+        <h2>One company, four connected capabilities</h2>
+        <p>Each service is designed to support the next. We help growers, builders, landlords, and operators get the practical support they need to keep projects moving.</p>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h3>Agriculture</h3>
+          <p>Farm support, supply planning, and market access for commercial and food crops.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Transport</h3>
+          <p>Freight movement and logistics coordination for dependable delivery schedules.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Real Estate</h3>
+          <p>Property investment, development, and management for residential and commercial needs.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Hardware</h3>
+          <p>Building materials, tools, and construction support for active project sites.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-section" id="agriculture">
+    <div class="container service-layout">
+      <div class="service-copy">
+        <span class="label">Agriculture</span>
+        <h2>Supporting farming, sourcing, and market access.</h2>
+        <p>We work with agricultural partners to connect production, logistics, and demand. Our focus is on helping farmers and traders move products efficiently and with less friction.</p>
+        <p>That includes practical support for sourcing, planning, and getting produce to market with quality and timing in mind.</p>
+        <ul class="detail-list">
+          <li>Crop sourcing and trade support for food and commercial crops</li>
+          <li>Coordination for farm inputs, harvesting, and post-harvest movement</li>
+          <li>Supply chain support for local and regional buyers</li>
+        </ul>
+      </div>
+      <aside class="service-panel">
+        <h3>Best for</h3>
+        <p>Growers, aggregators, and trade partners who need dependable help moving produce from field to market.</p>
+        <ul>
+          <li>Commercial crop sourcing</li>
+          <li>Farm logistics and delivery planning</li>
+          <li>Buyer and supplier coordination</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="service-section alt" id="transport">
+    <div class="container service-layout">
+      <div class="service-copy">
+        <span class="label">Transport</span>
+        <h2>Keeping goods moving across Kampala and beyond.</h2>
+        <p>Our transport service is built around dependable movement, clear communication, and route planning that keeps delivery promises realistic and on time.</p>
+        <p>We support freight movement for businesses that want a responsive partner rather than a one-size-fits-all logistics provider.</p>
+        <ul class="detail-list">
+          <li>Freight transport and dispatch coordination</li>
+          <li>Route planning and delivery scheduling</li>
+          <li>Support for business-to-business movement of goods</li>
+        </ul>
+      </div>
+      <aside class="service-panel">
+        <h3>Best for</h3>
+        <p>Businesses that need reliable movement of goods with clear handoffs and practical route management.</p>
+        <ul>
+          <li>Local and regional freight</li>
+          <li>Scheduled deliveries</li>
+          <li>Transport coordination for trade operations</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="service-section" id="real-estate">
+    <div class="container service-layout">
+      <div class="service-copy">
+        <span class="label">Real Estate</span>
+        <h2>Property investment and development with long-term value in mind.</h2>
+        <p>We approach property as a long-horizon asset class, focused on useful spaces, practical layouts, and sustainable growth.</p>
+        <p>From acquisition support to development planning and management, our work is centered on creating assets that perform well over time.</p>
+        <ul class="detail-list">
+          <li>Residential and commercial property investment</li>
+          <li>Development planning and project oversight</li>
+          <li>Property management support</li>
+        </ul>
+      </div>
+      <aside class="service-panel">
+        <h3>Best for</h3>
+        <p>Partners looking for disciplined property support that balances use, value, and durability.</p>
+        <ul>
+          <li>Land and building investment</li>
+          <li>Project scoping and development support</li>
+          <li>Management of occupied or rental property</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="service-section alt" id="hardware">
+    <div class="container service-layout">
+      <div class="service-copy">
+        <span class="label">Hardware &amp; Construction</span>
+        <h2>Supplying materials and tools that keep projects on track.</h2>
+        <p>We provide construction-related supplies with a focus on availability, reliability, and the realities of working on active sites.</p>
+        <p>Whether the need is a renovation, a new build, or an infrastructure upgrade, we help source the materials and equipment needed to keep progress moving.</p>
+        <ul class="detail-list">
+          <li>Building materials and site supplies</li>
+          <li>Tools, equipment, and renovation support</li>
+          <li>Infrastructure and contractor supply coordination</li>
+        </ul>
+      </div>
+      <aside class="service-panel">
+        <h3>Best for</h3>
+        <p>Contractors, developers, and site managers who need practical access to materials and project support.</p>
+        <ul>
+          <li>Construction and renovation supply</li>
+          <li>Material sourcing for projects</li>
+          <li>Contractor and site coordination</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container cta-inner">
+      <span class="label" style="color: var(--clay-light);">Need a partner?</span>
+      <h2 style="color: var(--white);">Let’s talk about your next project.</h2>
+      <p>Whether you need logistics help, land and property support, or reliable construction supply, our team is ready to discuss the right fit.</p>
+      <div class="button-row" style="justify-content:center;">
+        <a class="button primary" href="index.html#contact">Contact us</a>
+        <a class="button secondary" href="index.html">Return home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>Minaki Holdings</div>
+      <div>Kamwokya, Kampala, Uganda</div>
+    </div>
+  </footer>
+</body>
+</html>

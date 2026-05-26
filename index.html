@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minaki Holdings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand: #F5EFE0;
+      --sand-dark: #E8DFC8;
+      --earth: #8B6E4E;
+      --earth-dark: #6A4F34;
+      --clay: #C4875A;
+      --clay-light: #E8A97A;
+      --forest: #2D4A3E;
+      --forest-light: #3D6B5A;
+      --ink: #1A1410;
+      --ink-mid: #3D2F24;
+      --muted: #7A6355;
+      --white: #FDFAF5;
+      --accent: #D4854A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4vw;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(26, 20, 16, 0.92);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      color: rgba(253,250,245,0.75);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--clay-light); }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 4vw 6vh;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(45,74,62,0.7) 0%, rgba(26,20,16,0.95) 70%),
+        url('https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--clay-light);
+      margin-bottom: 1.2rem;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 600;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 em {
+      font-style: italic;
+      color: var(--clay-light);
+    }
+    .hero-content p {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      line-height: 1.7;
+      color: rgba(253,250,245,0.7);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 2rem;
+      background: var(--clay);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.25s, gap 0.25s;
+    }
+    .hero-cta:hover { background: var(--clay-light); gap: 1.1rem; }
+    .hero-cta svg { width: 16px; height: 16px; }
+    .hero-scroll {
+      position: absolute;
+      right: 4vw;
+      bottom: 6vh;
+      z-index: 2;
+      writing-mode: vertical-rl;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(253,250,245,0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 48px;
+      background: rgba(253,250,245,0.25);
+    }
+
+    /* ── SHARED ── */
+    section { padding: 7rem 4vw; }
+    .label {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-left p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+    .about-right {
+      position: sticky;
+      top: 6rem;
+    }
+    .mission-block {
+      border-left: 2px solid var(--clay);
+      padding: 2rem 2.5rem;
+      background: var(--sand);
+    }
+    .mission-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .mission-block p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 3.5rem;
+      border: 1px solid var(--sand-dark);
+    }
+    .stat {
+      padding: 1.5rem;
+      text-align: center;
+      border-right: 1px solid var(--sand-dark);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--earth);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--ink); }
+    .services .label { color: var(--clay-light); }
+    .services h2 { color: var(--white); }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 4rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .service-card {
+      background: var(--ink);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--clay);
+      transition: width 0.4s ease;
+    }
+    .service-card:hover { background: var(--ink-mid); }
+    .service-card:hover::after { width: 100%; }
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.75rem;
+      color: var(--clay);
+    }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .service-card p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: rgba(253,250,245,0.5);
+      font-weight: 300;
+    }
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: auto;
+      padding-top: 1.75rem;
+      color: var(--clay-light);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .service-link:hover { color: var(--white); gap: 0.8rem; }
+    .service-link svg { width: 14px; height: 14px; }
+
+    /* ── TEAM ── */
+    .team { background: var(--sand); }
+    .team-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .team-intro {
+      max-width: 760px;
+      margin-bottom: 3rem;
+    }
+    .team-intro p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .team-card {
+      background: var(--white);
+      padding: 1.75rem;
+      border: 1px solid var(--sand-dark);
+      box-shadow: 0 12px 30px rgba(26, 20, 16, 0.05);
+    }
+    .team-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--forest);
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    .team-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+    .team-role {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 1rem;
+    }
+    .team-card p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ── LOCATIONS ── */
+    .locations { background: var(--sand); }
+    .locations-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .locations-left p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .location-list { list-style: none; }
+    .location-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--sand-dark);
+      font-size: 0.9rem;
+      color: var(--earth-dark);
+      font-weight: 400;
+    }
+    .location-list li svg { color: var(--clay); flex-shrink: 0; }
+    .contact-panel {
+      background: var(--forest);
+      padding: 3rem;
+      color: var(--white);
+    }
+    .contact-panel h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--white);
+    }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-detail svg { color: var(--clay-light); margin-top: 2px; flex-shrink: 0; }
+    .contact-detail .detail-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(253,250,245,0.5);
+      margin-bottom: 0.2rem;
+    }
+    .contact-detail .detail-val {
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 300;
+    }
+
+    /* ── CONTACT FORM ── */
+    .contact-section { background: var(--white); }
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner p.intro {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      text-align: left;
+    }
+    .form-full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-group input,
+    .form-group textarea {
+      border: 1px solid var(--sand-dark);
+      border-radius: 0;
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.925rem;
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--clay); }
+    .submit-btn {
+      margin-top: 2rem;
+      padding: 1rem 3.5rem;
+      background: var(--earth-dark);
+      color: var(--white);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .submit-btn:hover { background: var(--clay); }
+    .notification {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--sand);
+      border-left: 3px solid var(--forest);
+      font-size: 0.9rem;
+      color: var(--forest);
+      text-align: left;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 3rem 4vw;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .footer-meta {
+      font-size: 0.78rem;
+      color: rgba(253,250,245,0.35);
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 1200px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--sand-dark);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--ink);
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        z-index: 99;
+      }
+      .nav-links.open a { font-size: 1.2rem; }
+      .nav-toggle { display: block; z-index: 101; }
+      .about-inner, .locations-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-right { position: static; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-full { grid-column: 1; }
+    }
+    @media (max-width: 540px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-right: none; border-top: 1px solid var(--sand-dark); grid-column: 1 / -1; }
+      section { padding: 5rem 5vw; }
+    }
+
+    /* ── FADE IN ── */
+    [data-fade] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    [data-fade].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="brand">Minaki Holdings</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" onclick="closeMenu()">About</a>
+      <a href="services.html" onclick="closeMenu()">Services</a>
+      <a href="#team" onclick="closeMenu()">Team</a>
+      <a href="#locations" onclick="closeMenu()">Locations</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Kamwokya, Kampala &mdash; Est. 2020</p>
+      <h1>Built on <em>land,</em><br>driven by <em>vision</em></h1>
+      <p>A holding company growing Uganda's future through agriculture, transport, real estate, and construction.</p>
+      <a href="services.html" class="hero-cta">
+        Explore Our Work
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-left" data-fade>
+        <span class="label">Who we are</span>
+        <h2>Grounded in Uganda,<br>built for the region</h2>
+        <p>Minaki Holdings is a Kampala-based holding company operating across agriculture, transportation, real estate, and construction materials. Our team works to build resilient supply chains, sustainable land investments, and dependable infrastructure solutions.</p>
+        <p>From our headquarters in Kamwokya, we serve business partners across Uganda and the East African region with quality and integrity. Every decision we make is rooted in long-term thinking and local knowledge.</p>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Core sectors</span></div>
+          <div class="stat"><span class="stat-num">EA</span><span class="stat-label">Region reach</span></div>
+          <div class="stat"><span class="stat-num">KLA</span><span class="stat-label">Headquartered</span></div>
+        </div>
+      </div>
+      <div class="about-right" data-fade>
+        <div class="mission-block">
+          <h3>Our mission</h3>
+          <p>To create lasting value through smart investments, quality service, and responsible business practices that benefit our partners, communities, and the wider region.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div data-fade>
+        <span class="label">What we do</span>
+        <h2>Our core businesses</h2>
+      </div>
+      <div class="services-grid" data-fade>
+        <article class="service-card">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 32c5-8 10-14 15-12s10 6 15-4"/>
+            <circle cx="20" cy="12" r="5"/>
+            <path d="M8 38h24"/>
+          </svg>
+          <h3>Agriculture</h3>
+          <p>Supporting modern farming, supply chain logistics, and market access for food and commercial crops across Uganda.</p>
+          <a class="service-link" href="services.html#agriculture">
+            Learn more
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </article>
+        <article class="service-card">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="16" width="28" height="14" rx="2"/>
+            <circle cx="10" cy="30" r="4"/>
+            <circle cx="26" cy="30" r="4"/>
+            <path d="M32 22h4l2 6H32"/>
+            <path d="M4 20V14l8-4h12l8 6"/>
+          </svg>
+          <h3>Transport</h3>
+          <p>Reliable freight movement and logistics services that keep goods flowing across Kampala and the wider region.</p>
+          <a class="service-link" href="services.html#transport">
+            Learn more
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </article>
+        <article class="service-card">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 36V18l14-12 14 12v18"/>
+            <rect x="14" y="24" width="12" height="12"/>
+            <path d="M20 6v6"/>
+          </svg>
+          <h3>Real Estate</h3>
+          <p>Property investment, development, and management solutions for residential and commercial needs.</p>
+          <a class="service-link" href="services.html#real-estate">
+            Learn more
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </article>
+        <article class="service-card">
+          <svg class="service-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 36h32"/>
+            <rect x="8" y="20" width="10" height="16"/>
+            <rect x="22" y="12" width="10" height="24"/>
+            <path d="M8 20l6-8 6 8M22 12l5-6 5 6"/>
+          </svg>
+          <h3>Hardware &amp; Construction</h3>
+          <p>Supply of building materials, tools, and equipment for construction, renovation, and infrastructure projects.</p>
+          <a class="service-link" href="services.html#hardware">
+            Learn more
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team" id="team">
+    <div class="team-inner">
+      <div class="team-intro" data-fade>
+        <span class="label">The people behind the work</span>
+        <h2>Experienced operators with a practical, local mindset</h2>
+        <p>Minaki Holdings is driven by a hands-on team that understands how land, logistics, buildings, and supply chains work together. We keep decisions close to the ground and partnerships focused on long-term value.</p>
+      </div>
+      <div class="team-grid" data-fade>
+        <article class="team-card">
+          <div class="team-avatar">M</div>
+          <h3>Leadership</h3>
+          <div class="team-role">Strategy &amp; Direction</div>
+          <p>Guiding company growth, investment decisions, and partner relationships with a clear focus on trust and durability.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar">A</div>
+          <h3>Agriculture Team</h3>
+          <div class="team-role">Field Support &amp; Supply</div>
+          <p>Coordinating sourcing, planning, and delivery support for farming and agro-trade opportunities across Uganda.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar">T</div>
+          <h3>Transport Team</h3>
+          <div class="team-role">Logistics &amp; Fleet Coordination</div>
+          <p>Keeping goods moving efficiently with careful route planning, dispatch coordination, and dependable service.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar">P</div>
+          <h3>Projects Team</h3>
+          <div class="team-role">Property &amp; Construction</div>
+          <p>Supporting real estate and hardware projects from planning to delivery with practical execution on site.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="locations" id="locations">
+    <div class="locations-inner">
+      <div class="locations-left" data-fade>
+        <span class="label">Where we operate</span>
+        <h2>Kampala at our core</h2>
+        <p>Headquartered in Kamwokya, Minaki Holdings is strategically positioned to serve urban and rural markets across Uganda and the broader East African region.</p>
+        <ul class="location-list">
+          <li>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Kamwokya office &amp; operations hub
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/></svg>
+            Local transport network for fast deliveries
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Regional reach across Greater Kampala and Central Region
+          </li>
+        </ul>
+      </div>
+      <div class="contact-panel" data-fade>
+        <h3>Get in touch</h3>
+        <div class="contact-detail">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <div>
+            <div class="detail-label">Address</div>
+            <div class="detail-val">Kamwokya, Kampala, Uganda</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div>
+            <div class="detail-label">Email</div>
+            <div class="detail-val">info@minakiholdings.ug</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <div class="detail-label">Phone</div>
+            <div class="detail-val">+256 700 000 000</div>
+          </div>
+        </div>
+        <a href="#contact" class="hero-cta" style="margin-top:1.5rem; display:inline-flex;">
+          Send a message
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:16px;height:16px;">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner" data-fade>
+      <span class="label">Start a conversation</span>
+      <h2>Let's work together</h2>
+      <p class="intro">Have a project or partnership opportunity? Reach out and our team will get back to you promptly.</p>
+      <form id="contactForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group form-full">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project or inquiry" rows="5" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+      <div class="notification" id="notification" style="display:none;">
+        Thank you — your message has been received. We'll be in touch shortly.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Minaki Holdings</div>
+      <div class="footer-meta">
+        <div>&copy; 2026 Minaki Holdings. All rights reserved.</div>
+        <div>Kamwokya, Kampala, Uganda</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+      toggle.textContent = links.classList.contains('open') ? '✕' : '☰';
+    });
+    function closeMenu() {
+      links.classList.remove('open');
+      toggle.textContent = '☰';
+    }
+
+    // Fade in on scroll
+    const faders = document.querySelectorAll('[data-fade]');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 120);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    faders.forEach(el => io.observe(el));
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      const n = document.getElementById('notification');
+      n.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
