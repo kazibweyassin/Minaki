@@ -9,18 +9,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --sand: #F5EFE0;
-      --sand-dark: #E8DFC8;
-      --earth: #8B6E4E;
-      --earth-dark: #6A4F34;
-      --clay: #C4875A;
-      --clay-light: #E8A97A;
-      --forest: #2D4A3E;
-      --forest-light: #3D6B5A;
-      --ink: #1A1410;
-      --ink-mid: #3D2F24;
-      --muted: #7A6355;
-      --white: #FDFAF5;
+      --sand: #E9EEF0;
+      --sand-dark: #D3DDE1;
+      --earth: #2F706B;
+      --earth-dark: #183C3A;
+      --clay: #2F706B;
+      --clay-light: #78AAA5;
+      --forest: #24554F;
+      --forest-light: #39756F;
+      --ink: #182126;
+      --ink-mid: #2E3B42;
+      --muted: #66757D;
+      --white: #FFFFFF;
     }
 
     * { box-sizing: border-box; }
@@ -312,18 +312,31 @@
       section { padding: 5rem 4vw; }
     }
   </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <nav class="site-nav">
-    <a class="brand" href="index.html">Minaki Holdings</a>
-    <div class="nav-links">
+    <a class="brand" href="index.html" aria-label="Minaki Holdings home">
+      <img src="logo.png" alt="Minaki Holdings">
+    </a>
+    <div class="nav-links" id="servicesNavLinks">
       <a href="index.html">Home</a>
-      <a href="#agriculture">Agriculture</a>
-      <a href="#transport">Transport</a>
-      <a href="#real-estate">Real Estate</a>
-      <a href="#hardware">Hardware</a>
+      <a href="index.html#about">About us</a>
+      <details class="nav-dropdown">
+        <summary>Services <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-dropdown-menu">
+          <a href="#agriculture">Agriculture</a>
+          <a href="#transport">Transport</a>
+          <a href="#real-estate">Real estate</a>
+          <a href="#hardware">Construction</a>
+        </div>
+      </details>
+      <a href="blog.html">Blog</a>
+      <a href="news.html">News</a>
+      <a href="index.html#locations">Locations</a>
       <a href="index.html#contact">Contact</a>
     </div>
+    <button class="nav-toggle" id="servicesNavToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
   </nav>
 
   <header class="hero">
@@ -361,6 +374,20 @@
         <div class="summary-card">
           <h3>Hardware</h3>
           <p>Building materials, tools, and construction support for active project sites.</p>
+        </div>
+        <div class="photo-strip" aria-label="Minaki Holdings in operation">
+          <figure>
+            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=900&q=85" alt="Freight truck on a road">
+            <figcaption>Moving goods</figcaption>
+          </figure>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=85" alt="Modern commercial building">
+            <figcaption>Developing assets</figcaption>
+          </figure>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=900&q=85" alt="Construction materials on site">
+            <figcaption>Building reliably</figcaption>
+          </figure>
         </div>
       </div>
     </div>
@@ -468,7 +495,7 @@
 
   <section class="cta">
     <div class="container cta-inner">
-      <span class="label" style="color: var(--clay-light);">Need a partner?</span>
+      <span class="label">Need a partner?</span>
       <h2 style="color: var(--white);">Let’s talk about your next project.</h2>
       <p>Whether you need logistics help, land and property support, or reliable construction supply, our team is ready to discuss the right fit.</p>
       <div class="button-row" style="justify-content:center;">
@@ -480,9 +507,54 @@
 
   <footer>
     <div class="footer-inner">
-      <div>Minaki Holdings</div>
-      <div>Kamwokya, Kampala, Uganda</div>
+      <div class="footer-main">
+        <a class="footer-brand" href="index.html" aria-label="Minaki Holdings home">
+          <img src="logo.png" alt="Minaki Holdings">
+        </a>
+        <p>Building dependable value across agriculture, transport, real estate, and construction.</p>
+        <a class="footer-email" href="mailto:info@minakiholdings.ug">info@minakiholdings.ug</a>
+      </div>
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <a href="index.html#about">About</a>
+        <a href="services.html">Services</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#locations">Locations</a>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <a href="#agriculture">Agriculture</a>
+        <a href="#transport">Transport</a>
+        <a href="#real-estate">Real Estate</a>
+        <a href="#hardware">Construction</a>
+      </div>
+      <div class="footer-column footer-details">
+        <h3>Contact</h3>
+        <span>Kamwokya, Kanjokya Street<br>Kampala (U)</span>
+        <a href="tel:+256769210141">+256 769 210 141</a>
+        <a href="tel:+256759075375">+256 759 075 375</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Minaki Holdings. All rights reserved.</span>
+      <a href="#">Back to top &uarr;</a>
     </div>
   </footer>
 </body>
+<script>
+  const servicesNavToggle = document.getElementById('servicesNavToggle');
+  const servicesNavLinks = document.getElementById('servicesNavLinks');
+  servicesNavToggle?.addEventListener('click', () => {
+    const isOpen = servicesNavLinks.classList.toggle('open');
+    servicesNavToggle.setAttribute('aria-expanded', String(isOpen));
+    servicesNavToggle.textContent = isOpen ? '✕' : '☰';
+  });
+  servicesNavLinks?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      servicesNavLinks.classList.remove('open');
+      servicesNavToggle?.setAttribute('aria-expanded', 'false');
+      if (servicesNavToggle) servicesNavToggle.textContent = '☰';
+    });
+  });
+</script>
 </html>

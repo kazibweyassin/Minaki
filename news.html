@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News | Minaki Holdings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .simple-page { padding: 10rem 4vw 6rem; }
+    .simple-page-inner { max-width: 1200px; margin: 0 auto; }
+    .page-intro { max-width: 720px; margin-bottom: 4rem; }
+    .simple-page h1 { margin: 0 0 1.25rem; font-size: clamp(2.8rem, 6vw, 5.4rem); }
+    .simple-page p { color: var(--muted); line-height: 1.8; }
+    .news-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .news-item { display: grid; grid-template-columns: 180px 1fr 1.1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--line); }
+    .news-date { color: var(--clay); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .news-item h2 { margin: 0; font-size: 1.55rem; }
+    .news-item p { margin: 0; font-size: .94rem; }
+    .news-tag { display: inline-block; margin-top: 1rem; color: var(--forest); font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .news-note { margin-top: 4rem; padding: 2rem; background: var(--sand); border-left: 3px solid var(--clay); }
+    .news-note h2 { margin: 0 0 .75rem; font-size: 1.5rem; }
+    .news-note p { margin: 0; }
+    @media (max-width: 800px) { .news-item { grid-template-columns: 1fr; gap: .75rem; } }
+    @media (max-width: 540px) { .simple-page { padding: 8rem 5vw 5rem; } }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="index.html" aria-label="Minaki Holdings home"><img src="logo.png" alt="Minaki Holdings"></a>
+    <div class="nav-links" id="pageNavLinks">
+      <a href="index.html#about">About us</a>
+      <details class="nav-dropdown">
+        <summary>Services <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-dropdown-menu">
+          <a href="services.html#agriculture">Agriculture</a>
+          <a href="services.html#transport">Transport</a>
+          <a href="services.html#real-estate">Real estate</a>
+          <a href="services.html#hardware">Construction</a>
+        </div>
+      </details>
+      <a href="blog.html">Blog</a>
+      <a href="news.html">News</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="pageNavToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+  </nav>
+  <main class="simple-page">
+    <div class="simple-page-inner">
+      <div class="page-intro">
+        <span class="label">Company news</span>
+        <h1>Updates from Minaki Holdings.</h1>
+        <p>Our newsroom brings together the priorities, operating perspectives, and company updates behind Minaki Holdings. We believe transparency is part of building durable relationships with partners and communities.</p>
+      </div>
+      <div class="news-list">
+        <article class="news-item">
+          <div class="news-date">02 Nov 2026</div>
+          <div>
+            <h2>Minaki strengthens its integrated operating model</h2>
+            <span class="news-tag">Company direction</span>
+          </div>
+          <p>Minaki Holdings is continuing to develop a connected platform across agriculture, transport, real estate, and construction supply. The approach is designed to give partners one dependable point of coordination while keeping specialist execution close to each operating area.</p>
+        </article>
+        <article class="news-item">
+          <div class="news-date">15 Oct 2026</div>
+          <div>
+            <h2>Building a more dependable supply chain in Uganda</h2>
+            <span class="news-tag">Operations</span>
+          </div>
+          <p>Our operating focus remains on practical improvements that reduce friction between sourcing, movement, and delivery. Clear handoffs, realistic schedules, and stronger supplier coordination help businesses make better decisions throughout the working day.</p>
+        </article>
+        <article class="news-item">
+          <div class="news-date">28 Sep 2026</div>
+          <div>
+            <h2>Local knowledge remains central to long-term investment</h2>
+            <span class="news-tag">Perspective</span>
+          </div>
+          <p>Successful investment in land, property, and infrastructure requires a grounded understanding of place. Our team continues to prioritise local context, responsible planning, and assets that serve practical needs over the long term.</p>
+        </article>
+        <article class="news-item">
+          <div class="news-date">04 Sep 2026</div>
+          <div>
+            <h2>A practical standard for project and partner support</h2>
+            <span class="news-tag">Partners</span>
+          </div>
+          <p>Every engagement should start with a clear brief, a realistic view of constraints, and an agreed definition of success. This standard helps our teams support growers, operators, developers, and contractors with more consistent communication.</p>
+        </article>
+      </div>
+      <div class="news-note">
+        <h2>Have a project or partnership to discuss?</h2>
+        <p>Our team is based in Kamwokya, Kanjokya Street, Kampala. <a href="index.html#contact">Contact Minaki Holdings</a> to start a conversation.</p>
+      </div>
+    </div>
+  </main>
+  <script>
+    const pageNavToggle = document.getElementById('pageNavToggle');
+    const pageNavLinks = document.getElementById('pageNavLinks');
+    pageNavToggle?.addEventListener('click', () => {
+      const isOpen = pageNavLinks.classList.toggle('open');
+      pageNavToggle.setAttribute('aria-expanded', String(isOpen));
+      pageNavToggle.textContent = isOpen ? '✕' : '☰';
+    });
+  </script>
+</body>
+</html>

@@ -11,19 +11,19 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --sand: #F5EFE0;
-      --sand-dark: #E8DFC8;
-      --earth: #8B6E4E;
-      --earth-dark: #6A4F34;
-      --clay: #C4875A;
-      --clay-light: #E8A97A;
-      --forest: #2D4A3E;
-      --forest-light: #3D6B5A;
-      --ink: #1A1410;
-      --ink-mid: #3D2F24;
-      --muted: #7A6355;
-      --white: #FDFAF5;
-      --accent: #D4854A;
+      --sand: #E9EEF0;
+      --sand-dark: #D3DDE1;
+      --earth: #2F706B;
+      --earth-dark: #183C3A;
+      --clay: #2F706B;
+      --clay-light: #78AAA5;
+      --forest: #24554F;
+      --forest-light: #39756F;
+      --ink: #182126;
+      --ink-mid: #2E3B42;
+      --muted: #66757D;
+      --white: #FFFFFF;
+      --accent: #2F706B;
     }
 
     html { scroll-behavior: smooth; }
@@ -590,16 +590,28 @@
       transform: translateY(0);
     }
   </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <!-- NAV -->
   <nav id="mainNav">
-    <div class="brand">Minaki Holdings</div>
+    <a class="brand" href="index.html" aria-label="Minaki Holdings home">
+      <img src="logo.png" alt="Minaki Holdings">
+    </a>
     <div class="nav-links" id="navLinks">
-      <a href="#about" onclick="closeMenu()">About</a>
-      <a href="services.html" onclick="closeMenu()">Services</a>
-      <a href="#team" onclick="closeMenu()">Team</a>
+      <a href="#about" onclick="closeMenu()">About us</a>
+      <details class="nav-dropdown">
+        <summary>Services <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-dropdown-menu">
+          <a href="services.html#agriculture" onclick="closeMenu()">Agriculture</a>
+          <a href="services.html#transport" onclick="closeMenu()">Transport</a>
+          <a href="services.html#real-estate" onclick="closeMenu()">Real estate</a>
+          <a href="services.html#hardware" onclick="closeMenu()">Construction</a>
+        </div>
+      </details>
+      <a href="blog.html" onclick="closeMenu()">Blog</a>
+      <a href="news.html" onclick="closeMenu()">News</a>
       <a href="#locations" onclick="closeMenu()">Locations</a>
       <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
@@ -610,7 +622,7 @@
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Kamwokya, Kampala &mdash; Est. 2020</p>
+      <p class="hero-eyebrow">Integrated operations across Uganda and East Africa</p>
       <h1>Built on <em>land,</em><br>driven by <em>vision</em></h1>
       <p>A holding company growing Uganda's future through agriculture, transport, real estate, and construction.</p>
       <a href="services.html" class="hero-cta">
@@ -638,6 +650,9 @@
         </div>
       </div>
       <div class="about-right" data-fade>
+        <figure class="about-photo">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&q=85" alt="Cultivated fields at sunrise">
+        </figure>
         <div class="mission-block">
           <h3>Our mission</h3>
           <p>To create lasting value through smart investments, quality service, and responsible business practices that benefit our partners, communities, and the wider region.</p>
@@ -768,7 +783,7 @@
         <ul class="location-list">
           <li>
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            Kamwokya office &amp; operations hub
+            Kamwokya, Kanjokya Street office &amp; operations hub
           </li>
           <li>
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/></svg>
@@ -786,7 +801,7 @@
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           <div>
             <div class="detail-label">Address</div>
-            <div class="detail-val">Kamwokya, Kampala, Uganda</div>
+            <div class="detail-val">Kamwokya, Kanjokya Street, Kampala (U)</div>
           </div>
         </div>
         <div class="contact-detail">
@@ -800,7 +815,10 @@
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <div>
             <div class="detail-label">Phone</div>
-            <div class="detail-val">+256 700 000 000</div>
+            <div class="detail-val phone-list">
+              <a href="tel:+256769210141">+256 769 210 141</a>
+              <a href="tel:+256759075375">+256 759 075 375</a>
+            </div>
           </div>
         </div>
         <a href="#contact" class="hero-cta" style="margin-top:1.5rem; display:inline-flex;">
@@ -845,11 +863,37 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-brand">Minaki Holdings</div>
-      <div class="footer-meta">
-        <div>&copy; 2026 Minaki Holdings. All rights reserved.</div>
-        <div>Kamwokya, Kampala, Uganda</div>
+      <div class="footer-main">
+        <a class="footer-brand" href="index.html" aria-label="Minaki Holdings home">
+          <img src="logo.png" alt="Minaki Holdings">
+        </a>
+        <p>Building dependable value across agriculture, transport, real estate, and construction.</p>
+        <a class="footer-email" href="mailto:info@minakiholdings.ug">info@minakiholdings.ug</a>
       </div>
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <a href="#about">About</a>
+        <a href="services.html">Services</a>
+        <a href="#team">Team</a>
+        <a href="#locations">Locations</a>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <a href="services.html#agriculture">Agriculture</a>
+        <a href="services.html#transport">Transport</a>
+        <a href="services.html#real-estate">Real Estate</a>
+        <a href="services.html#hardware">Construction</a>
+      </div>
+      <div class="footer-column footer-details">
+        <h3>Contact</h3>
+        <span>Kamwokya, Kanjokya Street<br>Kampala (U)</span>
+        <a href="tel:+256769210141">+256 769 210 141</a>
+        <a href="tel:+256759075375">+256 759 075 375</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Minaki Holdings. All rights reserved.</span>
+      <a href="#mainNav">Back to top &uarr;</a>
     </div>
   </footer>
 

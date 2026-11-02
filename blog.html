@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Minaki Holdings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .simple-page { padding: 10rem 4vw 6rem; }
+    .simple-page-inner { max-width: 1200px; margin: 0 auto; }
+    .page-intro { max-width: 720px; margin-bottom: 4rem; }
+    .simple-page h1 { margin: 0 0 1.25rem; font-size: clamp(2.8rem, 6vw, 5.4rem); }
+    .simple-page p { color: var(--muted); line-height: 1.8; }
+    .featured-article {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 3rem;
+      padding: 2rem 0 4rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .article-kicker { color: var(--clay); font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .featured-article h2 { margin: .8rem 0 1rem; font-size: clamp(1.8rem, 3vw, 3rem); }
+    .article-meta { color: var(--muted); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; }
+    .article-body p { margin: 1rem 0; }
+    .article-list { margin: 1.5rem 0 0; padding-left: 1.2rem; color: var(--ink-soft); line-height: 1.8; }
+    .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 4rem; }
+    .article-card { padding: 1.5rem; border: 1px solid var(--line); background: var(--white); }
+    .article-card h3 { margin: .8rem 0; font-size: 1.35rem; }
+    .article-card p { margin: 0; font-size: .92rem; }
+    .article-card a { display: inline-block; margin-top: 1.25rem; color: var(--forest); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+    @media (max-width: 800px) { .featured-article, .article-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .simple-page { padding: 8rem 5vw 5rem; } }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="index.html" aria-label="Minaki Holdings home"><img src="logo.png" alt="Minaki Holdings"></a>
+    <div class="nav-links" id="pageNavLinks">
+      <a href="index.html#about">About us</a>
+      <details class="nav-dropdown">
+        <summary>Services <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-dropdown-menu">
+          <a href="services.html#agriculture">Agriculture</a>
+          <a href="services.html#transport">Transport</a>
+          <a href="services.html#real-estate">Real estate</a>
+          <a href="services.html#hardware">Construction</a>
+        </div>
+      </details>
+      <a href="blog.html">Blog</a>
+      <a href="news.html">News</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="pageNavToggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+  </nav>
+  <main class="simple-page">
+    <div class="simple-page-inner">
+      <div class="page-intro">
+        <span class="label">Insights</span>
+        <h1>Practical thinking for a growing region.</h1>
+        <p>Long-term businesses are built in the details: how goods move, how land is used, how materials are sourced, and how decisions hold up after the first plan is made. These are the ideas that shape our work at Minaki Holdings.</p>
+      </div>
+      <article class="featured-article">
+        <div>
+          <span class="article-kicker">Featured perspective · Operations</span>
+          <h2>Why dependable infrastructure starts with better coordination</h2>
+          <div class="article-meta">Minaki Holdings · 6 min read</div>
+        </div>
+        <div class="article-body">
+          <p>Infrastructure is often described through its visible outputs: a finished building, a delivered shipment, a productive farm, or a functioning commercial space. But the quality of that output is usually determined much earlier, through the coordination of people, materials, timing, and information.</p>
+          <p>For businesses operating across Uganda, reliability is not a single service. It is a connected system. A delay in sourcing can affect transport. A weak delivery plan can disrupt a construction schedule. A property decision made without local context can create costs that appear months later.</p>
+          <ul class="article-list">
+            <li>Plan around real operating conditions, not ideal assumptions.</li>
+            <li>Keep communication clear between suppliers, operators, and clients.</li>
+            <li>Measure success by durability, not only speed.</li>
+          </ul>
+        </div>
+      </article>
+      <div class="article-grid">
+        <article class="article-card">
+          <span class="article-kicker">Agriculture</span>
+          <h3>From farm output to market confidence</h3>
+          <p>Strong agricultural supply chains depend on more than production. They require planning around quality, aggregation, storage, transport, and the expectations of the buyer.</p>
+          <a href="services.html#agriculture">Read the service brief →</a>
+        </article>
+        <article class="article-card">
+          <span class="article-kicker">Transport</span>
+          <h3>The business value of predictable movement</h3>
+          <p>When delivery schedules are realistic and responsibilities are clear, businesses can plan inventory, labour, and customer commitments with greater confidence.</p>
+          <a href="services.html#transport">Read the service brief →</a>
+        </article>
+        <article class="article-card">
+          <span class="article-kicker">Real estate</span>
+          <h3>Useful property is durable property</h3>
+          <p>Long-term property value comes from practical design, sound management, and an understanding of how people and businesses will actually use a space.</p>
+          <a href="services.html#real-estate">Read the service brief →</a>
+        </article>
+      </div>
+    </div>
+  </main>
+  <script>
+    const pageNavToggle = document.getElementById('pageNavToggle');
+    const pageNavLinks = document.getElementById('pageNavLinks');
+    pageNavToggle?.addEventListener('click', () => {
+      const isOpen = pageNavLinks.classList.toggle('open');
+      pageNavToggle.setAttribute('aria-expanded', String(isOpen));
+      pageNavToggle.textContent = isOpen ? '✕' : '☰';
+    });
+  </script>
+</body>
+</html>
