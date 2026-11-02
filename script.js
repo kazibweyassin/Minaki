@@ -1,25 +1,39 @@
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-const scrollContact = document.getElementById('scrollContact');
 const contactForm = document.getElementById('contactForm');
 const notification = document.getElementById('notification');
-
-navToggle?.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-});
-
-scrollContact?.addEventListener('click', () => {
-  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  navLinks.classList.remove('open');
-});
 
 contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!notification) return;
-  notification.hidden = false;
-  notification.textContent = 'Thanks! We have received your message and will respond shortly.';
-  contactForm.reset();
-  setTimeout(() => {
-    notification.hidden = true;
-  }, 5000);
+
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+  }
+  notification.hidden = true;
+
+  fetch(contactForm.action, {
+    method: 'POST',
+    body: new FormData(contactForm),
+    headers: { Accept: 'application/json' }
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error('The contact service returned an error.');
+      return response.json();
+    })
+    .then(() => {
+      contactForm.reset();
+      notification.textContent = 'Thank you. Your message has been sent to Minaki Holdings.';
+      notification.hidden = false;
+    })
+    .catch(() => {
+      notification.textContent = 'We could not send your message right now. Please email info@minakiholdings.com directly.';
+      notification.hidden = false;
+    })
+    .finally(() => {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+      }
+    });
 });
